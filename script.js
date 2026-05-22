@@ -73,8 +73,7 @@ const words   = [
   'Deep Learning Models',
   'NLP Pipelines',
   'Full-Stack Apps',
-  'Computer Vision',
-  'Scalable APIs',
+  'Computer Vision'
 ];
 
 let wordIdx  = 0;
