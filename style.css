@@ -334,25 +334,33 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .hero-socials {
   display: flex;
-  gap: 0.75rem;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
 }
 
-.social-link {
-  width: 42px; height: 42px;
-  border-radius: 10px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
+.social-link-text {
+  font-size: 0.9rem;
+  font-weight: 600;
   color: var(--text-muted);
-  transition: all var(--transition);
+  transition: color var(--transition), transform var(--transition);
+  position: relative;
+  display: inline-block;
 }
-.social-link svg { width: 18px; height: 18px; }
-.social-link:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: white;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(99,102,241,0.3);
+.social-link-text::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 2px;
+  background: var(--gradient);
+  border-radius: 1px;
+  transition: width var(--transition);
+}
+.social-link-text:hover {
+  color: var(--text);
+  transform: translateY(-2px);
+}
+.social-link-text:hover::after {
+  width: 100%;
 }
 
 /* Hero Visual */
@@ -461,6 +469,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   transition: all var(--transition);
   position: relative;
   overflow: hidden;
+}
+.btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 .btn::before {
   content: '';
@@ -850,14 +863,15 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   top: 0.75rem; left: 0.75rem;
 }
 .proj-category-tag {
+  display: inline-block;
+  margin-bottom: 0.75rem;
   padding: 0.3rem 0.75rem;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(8px);
+  background: rgba(99,102,241,0.1);
   border-radius: 100px;
   font-size: 0.75rem;
   font-weight: 600;
-  color: white;
-  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--accent);
+  border: 1px solid rgba(99,102,241,0.2);
 }
 
 .project-info { padding: 1.75rem; }
@@ -941,23 +955,43 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    ============================================================ */
 .certs-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   margin-bottom: 3rem;
 }
 
 .cert-card {
+  position: relative;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   text-align: center;
   transition: all var(--transition);
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
 }
 .cert-card:hover {
   border-color: rgba(99,102,241,0.4);
   transform: translateY(-6px);
   box-shadow: 0 16px 40px rgba(99,102,241,0.12);
+}
+.cert-link-icon, .award-link-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 16px;
+  height: 16px;
+  color: var(--text-faint);
+  transition: all var(--transition);
+  opacity: 0.6;
+}
+.cert-card:hover .cert-link-icon, .award-card:hover .award-link-icon {
+  color: var(--accent);
+  opacity: 1;
+  transform: translate(2px, -2px);
 }
 
 .cert-icon {
@@ -1032,6 +1066,64 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .hack-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
 .hack-card p { font-size: 0.8rem; color: var(--text-muted); }
 
+/* Open Source Contributions Grid */
+.contrib-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.contrib-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  transition: all var(--transition);
+  display: flex;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.contrib-card:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(99, 102, 241, 0.12);
+}
+
+.contrib-badge {
+  align-self: flex-start;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+  border-radius: 100px;
+  margin-bottom: 1rem;
+}
+
+.contrib-card h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: var(--text);
+}
+
+.contrib-card h5 {
+  font-size: 0.85rem;
+  color: var(--accent-2);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.contrib-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
 /* ============================================================
    ACHIEVEMENTS
    ============================================================ */
@@ -1049,6 +1141,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   position: relative;
   transition: all var(--transition);
   overflow: hidden;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
 }
 .award-card:hover {
   border-color: rgba(99,102,241,0.4);
@@ -1156,6 +1252,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-size: 1.1rem;
   flex-shrink: 0;
 }
+.contact-item-icon svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
 .contact-item > div:not(.contact-item-icon) {
   display: flex; flex-direction: column; gap: 0.1rem;
 }
@@ -1221,7 +1322,20 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   text-align: center;
   padding: 3rem 1rem;
 }
-.success-icon { font-size: 3rem; margin-bottom: 1rem; }
+.success-badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.1);
+  border: 2px solid var(--green);
+  color: var(--green);
+  font-size: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-weight: bold;
+}
 .form-success h4 {
   font-size: 1.25rem;
   font-weight: 700;
@@ -1307,6 +1421,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    ============================================================ */
 @media (max-width: 1024px) {
   .certs-grid { grid-template-columns: repeat(2, 1fr); }
+  .contrib-grid { grid-template-columns: repeat(2, 1fr); }
   .awards-grid { grid-template-columns: 1fr; }
   .featured-award { grid-column: auto; }
 }
@@ -1346,6 +1461,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .projects-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
   .certs-grid { grid-template-columns: 1fr; }
+  .contrib-grid { grid-template-columns: 1fr; }
   .hack-grid { grid-template-columns: 1fr; }
 
   .exp-card { flex-direction: column; gap: 0; }
